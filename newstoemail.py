@@ -3,8 +3,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import requests
 import smtplib
+from cryptography.fernet import Fernet
 
-api_key="f7cf2ea3fc9042788a1515ddf4b20bad"
+
+
+
 topic="techcrunch"
 url=("https://newsapi.org/v2/top-headlines?"
      f"sources={topic}"
@@ -13,7 +16,11 @@ url=("https://newsapi.org/v2/top-headlines?"
 request = requests.get(url,verify=False)
 content= request.json()
 
-password ="wnhq xjon atvx ronl"
+key =b'9TosKCMguiTVPZABa69TxRQqPlPLm5OpFw5Nw4AvqAI='
+f=Fernet(key)
+
+encrypted_password ="gAAAAABoZ1bbEkBCnEWtA9E2ZcKzd_9LZUnCRqEs9PaWnn4p0jVhes2McT3BE7LN1DVRak9c6sLswi9CgjBOfeFWvdAKpD7KdgwtmjgbXB7eLxmRvrzYJoU="
+password=f.decrypt(encrypted_password).decode()
 user_name="thriveonmission@gmail.com"
 
 receiver ="thriveonmission@gmail.com"
